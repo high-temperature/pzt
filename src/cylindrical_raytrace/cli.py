@@ -9,10 +9,12 @@ import sys
 
 from .geometry import Ray, Vec2
 from .tracer import CylinderModel, trace_ray
+from . import __version__
 
 
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description="Trace a ray through concentric cylindrical boundaries.")
+    result.add_argument("--version", action="version", version=f"cylindrical-raytrace {__version__}")
     result.add_argument("--inner-radius", type=float, required=True)
     result.add_argument("--outer-radius", type=float, required=True)
     result.add_argument("--n1", type=float, default=1.0, help="index outside and inside the inner cylinder")

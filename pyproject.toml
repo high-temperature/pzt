@@ -4,13 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cylindrical-raytrace"
-version = "0.1.0"
+version = "0.1.1"
 description = "2D ray tracing through concentric, zero-thickness cylindrical boundaries"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = ["matplotlib>=3.7"]
 
 [project.optional-dependencies]
-plot = ["matplotlib>=3.7"]
 test = ["pytest>=7"]
 
 [project.scripts]

@@ -27,7 +27,40 @@ python -m cylindrical_raytrace \
 ```
 
 角度は正のx軸から反時計回りの度数です。`--output-format json` でJSONを出力できます。
-`pip install -e '.[plot]'` の後に `--plot ray.png` を指定すると光路図を保存します。
+描画機能に必要な `matplotlib` は通常のインストールに含まれます。`--plot ray.png` を
+指定すると光路図を保存します。
+
+```bash
+python -m cylindrical_raytrace \
+  --inner-radius 1 --outer-radius 2 \
+  --n1 1.0 --n2 1.33 \
+  --origin-x -4 --origin-y 0.5 --angle-deg 0 \
+  --plot ray.png
+```
+
+### Windowsで旧バージョンが実行される場合
+
+`plotting requires: pip install 'cylindrical-raytrace[plot]'` というエラーは、修正前の
+バージョンがPython環境に残っていることを示します。現在のバージョンにはそのエラー文は
+存在しません。コマンドプロンプトで、ダウンロードしたプロジェクトのディレクトリへ移動し、
+**実行に使うPythonと同じPython**で再インストールしてください。
+
+```bat
+cd C:\Users\kyoch\source\repos\pzt-main\pzt-main
+python -m pip uninstall -y cylindrical-raytrace
+python -m pip install --no-cache-dir .
+python -m cylindrical_raytrace --version
+```
+
+バージョン表示が `0.1.1` になったら、どのディレクトリからでも実行できます。
+
+```bat
+cd C:\Users\kyoch\source\repos
+python -m cylindrical_raytrace --inner-radius 1 --outer-radius 2 --n1 1.0 --n2 1.33 --origin-x -4 --origin-y 0.5 --angle-deg 0 --plot ray.png
+```
+
+複数のPythonをインストールしている場合は、インストールと実行の両方で同じランチャー
+（例えば `py -3.12 -m pip ...` と `py -3.12 -m cylindrical_raytrace ...`）を使ってください。
 
 ```bash
 python -m cylindrical_raytrace --help
