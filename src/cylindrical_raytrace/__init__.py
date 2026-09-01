@@ -3,6 +3,6 @@
 from .geometry import Ray, Vec2
 from .tracer import CylinderModel, TraceResult, trace_ray
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 __all__ = ["CylinderModel", "Ray", "TraceResult", "Vec2", "trace_ray"]

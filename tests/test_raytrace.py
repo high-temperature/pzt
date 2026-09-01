@@ -8,6 +8,7 @@ from cylindrical_raytrace.cli import main
 from cylindrical_raytrace.geometry import Ray, Vec2, ray_circle_intersections
 from cylindrical_raytrace.optics import interact
 from cylindrical_raytrace.tracer import CylinderModel, trace_ray
+from cylindrical_raytrace.acoustics import UltrasonicModel, trace_ultrasound
 
 
 def test_circle_intersections():
@@ -73,4 +74,23 @@ def test_cli_reports_version(capsys):
     with pytest.raises(SystemExit) as exit_info:
         main(["--version"])
     assert exit_info.value.code == 0
-    assert capsys.readouterr().out == "cylindrical-raytrace 0.1.1\n"
+    assert capsys.readouterr().out == "cylindrical-raytrace 0.2.0\n"
+
+
+def test_ultrasound_crosses_layer_and_reaches_water():
+    model = UltrasonicModel(4, 5)
+    trace = trace_ultrasound(model, Ray(Vec2(-5.49, 0), Vec2(1, 0)))
+    assert trace.events[0].from_medium == "matching"
+    assert trace.events[0].to_medium == "pfa"
+    assert any(event.to_medium == "water" for event in trace.events)
+    assert any(event.action == "reflect" and event.to_medium is None for event in trace.events)
+    assert trace.termination == "reached PZT"
+    assert trace.travel_time_us > 0
+
+
+def test_matching_layer_has_two_mm_arc_width():
+    model = UltrasonicModel(4, 5, matching_center_angle_deg=0)
+    on_edge = Vec2(5 * math.cos(0.2), 5 * math.sin(0.2))
+    outside = Vec2(5 * math.cos(0.201), 5 * math.sin(0.201))
+    assert model.in_matching_arc(on_edge)
+    assert not model.in_matching_arc(outside)
