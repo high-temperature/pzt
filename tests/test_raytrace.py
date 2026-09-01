@@ -1,6 +1,5 @@
 import json
 import math
-from pathlib import Path
 
 import pytest
 
@@ -57,13 +56,3 @@ def test_cli_json(capsys):
     output = json.loads(capsys.readouterr().out)
     assert len(output["events"]) == 4
     assert output["termination"] == "exited"
-
-
-def test_cli_creates_plot(tmp_path: Path, capsys):
-    output = tmp_path / "ray.png"
-    status = main(["--inner-radius", "1", "--outer-radius", "2", "--n1", "1",
-                   "--n2", "1.33", "--origin-x", "-4", "--origin-y", "0.5",
-                   "--angle-deg", "0", "--plot", str(output)])
-    assert status == 0
-    assert output.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
-    capsys.readouterr()

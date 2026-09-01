@@ -7,9 +7,10 @@ name = "cylindrical-raytrace"
 version = "0.1.0"
 description = "2D ray tracing through concentric, zero-thickness cylindrical boundaries"
 requires-python = ">=3.10"
-dependencies = ["matplotlib>=3.7"]
+dependencies = []
 
 [project.optional-dependencies]
+plot = ["matplotlib>=3.7"]
 test = ["pytest>=7"]
 
 [project.scripts]

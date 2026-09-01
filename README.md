@@ -27,19 +27,7 @@ python -m cylindrical_raytrace \
 ```
 
 角度は正のx軸から反時計回りの度数です。`--output-format json` でJSONを出力できます。
-描画機能に必要な `matplotlib` は通常のインストールに含まれます。`--plot ray.png` を
-指定すると光路図を保存します。
-
-```bash
-python -m cylindrical_raytrace \
-  --inner-radius 1 --outer-radius 2 \
-  --n1 1.0 --n2 1.33 \
-  --origin-x -4 --origin-y 0.5 --angle-deg 0 \
-  --plot ray.png
-```
-
-既に旧バージョンをインストールしていて `plotting requires` と表示される場合は、
-プロジェクトのルートで `python -m pip install -e .` を再実行してください。
+`pip install -e '.[plot]'` の後に `--plot ray.png` を指定すると光路図を保存します。
 
 ```bash
 python -m cylindrical_raytrace --help

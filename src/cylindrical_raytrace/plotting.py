@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
-import matplotlib.pyplot as plt
-
 from .geometry import Ray
 from .tracer import CylinderModel, TraceResult
 
 
 def save_plot(model: CylinderModel, incoming: Ray, trace: TraceResult, path: str) -> None:
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError as error:
+        raise RuntimeError("plotting requires: pip install 'cylindrical-raytrace[plot]'") from error
+
     figure, axes = plt.subplots()
     liquid = plt.Circle((0, 0), model.outer_radius, color="#b9e3f5", alpha=0.45)
     core = plt.Circle((0, 0), model.inner_radius, color="white")
